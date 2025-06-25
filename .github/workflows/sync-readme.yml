@@ -24,10 +24,11 @@ jobs:
           ref: master
           fetch-depth: 1
 
-      - name: Remove old README and copy new one
+      - name: Remove old profile README and copy new one
         run: |
-          rm -f README.md
-          cp profile/README.md README.md
+          rm -f ./profile/README.md
+          cp profile/README.md ./profile/README.md
+
 
 
 
