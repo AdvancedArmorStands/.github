@@ -27,7 +27,7 @@ jobs:
       - name: Sync README.md from external repo
         uses: ShineyDev/sync-readme-action@v0.1.0
         with:
-          source: external-repo/README.md
+          source: profile/README.md
           destination: README.md
           verbosity: 3
 
