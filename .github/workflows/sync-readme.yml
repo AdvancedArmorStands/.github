@@ -20,14 +20,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: Parsa3323/AdvancedArmorStands
-          path: profile
+          path: aas-temp
           ref: master
           fetch-depth: 1
 
       - name: Remove old README and copy new one
         run: |
           rm -f ./profile/README.md
-          cp profile/README.md ./profile/README.md
+          cp aas-temp/README.md ./profile/README.md
 
       - name: Commit and push
         env:
