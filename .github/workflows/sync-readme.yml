@@ -1,25 +1,27 @@
-name: Sync README
+name: Sync README from Master Repo
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - 'README.md'
+  schedule:
+    - cron: '0 0 * * *' # every day at midnight UTC
 
 jobs:
   sync-readme:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Sync README
-        uses: BetaHuhn/readme-sync-action@v2
-        with:
-          source-repository: Parsa3323/AdvancedArmorStands
-          source-branch: master
-          source-filepath: ./README.md
-          destination-filepath: ./README.md
-          github_token: ${{ secrets.PAT_TOKEN }}
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+
+      - name: Download README from source repo
+        run: |
+          curl -o README.md https://raw.githubusercontent.com/Parsa3323/AdvancedArmorStands/Master/README.md
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "Sync README from main repository"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
