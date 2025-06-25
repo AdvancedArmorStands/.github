@@ -191,6 +191,7 @@ armorstand:
   SavedStand101: # <====== Name of the armor stand
     say-its-working: # <====== Command name (use '-' instead of spaces)
       type: player # <====== Command executor ('player' or 'server')
+      trigger: all # <====== Interaction that triggers the action
 ```
 > [!TIP]  
 > Use the Armor Stand menu to create or delete actions easily.
@@ -231,14 +232,3 @@ For more details, refer to the [official documentation](https://docs.advancedarm
 
 
 
-
-<!--
-
-**Here are some ideas to get you started:**
-
-🙋‍♀️ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
--->
