@@ -1,27 +1,43 @@
-name: Sync README from Master Repo
+name: Sync README from AdvancedArmorStands
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # every day at midnight UTC
+    - cron: "0 0 * * *"  # runs daily at midnight, adjust as needed
 
 jobs:
   sync-readme:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout target repo
-        uses: actions/checkout@v4
 
-      - name: Download README from source repo
-        run: |
-          curl -o README.md https://raw.githubusercontent.com/Parsa3323/AdvancedArmorStands/Master/README.md
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Checkout AdvancedArmorStands repo
+        uses: actions/checkout@v3
+        with:
+          repository: Parsa3323/AdvancedArmorStands
+          path: external-repo
+          ref: master
+          fetch-depth: 1
+
+      - name: Sync README.md from external repo
+        uses: ShineyDev/sync-readme-action@v0.1.0
+        with:
+          source: external-repo/README.md
+          destination: README.md
+          verbosity: 3
 
       - name: Commit and push if changed
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           git add README.md
-          git diff --cached --quiet || git commit -m "Sync README from main repository"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          if ! git diff --cached --quiet; then
+            git commit -m "Sync README.md from AdvancedArmorStands"
+            git push
+          else
+            echo "No changes to commit"
+          fi
