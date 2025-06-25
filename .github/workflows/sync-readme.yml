@@ -24,13 +24,10 @@ jobs:
           ref: master
           fetch-depth: 1
 
-      - name: Remove old profile README and copy new one
+      - name: Remove old README and copy new one
         run: |
           rm -f ./profile/README.md
           cp profile/README.md ./profile/README.md
-
-
-
 
       - name: Commit and push
         env:
@@ -42,6 +39,4 @@ jobs:
           git commit -m "Force sync README.md from AdvancedArmorStands" --allow-empty
           git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}
           git push origin main
-
       
-
