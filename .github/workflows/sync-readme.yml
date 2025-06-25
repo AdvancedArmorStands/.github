@@ -1,0 +1,37 @@
+name: Sync README from Another Repo
+
+on:
+  schedule:
+    - cron: "0 0 * * *" 
+  workflow_dispatch:    
+
+jobs:
+  sync-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your repo
+        uses: actions/checkout@v4
+
+      - name: Fetch remote README.md
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Parsa3323/AdvancedArmorStands/master/README.md -o external_README.md
+
+      - name: Compare with current README
+        id: compare
+        run: |
+          if ! cmp -s external_README.md README.md; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update README.md if changed
+        if: steps.compare.outputs.changed == 'true'
+        run: |
+          mv external_README.md README.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update README from external repo"
+          git push
