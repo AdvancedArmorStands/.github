@@ -78,7 +78,7 @@ This document contains the configuration details for AAS.
 
 ## Main Configuration
 
-`main.yml`:
+The `main.yml` file is the plugin's main configuration file:
 
 
 </div>
@@ -99,7 +99,7 @@ auto-load-armor-stands: false # <========== Automatically reload armor stands on
 
 ## Types Configuration
 
-`types.yml`:
+The `types.yml` file is the configuration for types:
 
 </div>
 
@@ -135,7 +135,13 @@ default: # <====== Name of the type
 > [!NOTE]  
 > Players can create as many types as they want (e.g., up to 80 types), but they must change the names and </br> each type can be used in the game using the `create` command
 
+<div align="center">
+
 ## Animations Configuration
+
+The `animations.yml` file is the configuration for animations:
+
+</div>
 
 ```yaml
 animations:
@@ -187,7 +193,13 @@ animations:
 >[!TIP]
 > Or you can use the [online editor](https://advancedarmorstands.ir/animate)
 
+<div align="center">
+
 ## Actions Configuration
+
+The `actions.yml` file is the configuration for actions:
+
+</div>
 
 ```yaml
 armorstand:
