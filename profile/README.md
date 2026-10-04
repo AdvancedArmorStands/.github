@@ -25,6 +25,8 @@
 
 <div align="center">
 
+
+
 **[Polymart](https://www.polymart.org/product/7829/advancedarmorstands)** •
 **[Spigot](https://www.spigotmc.org/resources/advancedarmorstands.121022/)** •
 **[Documentation](https://docs.advancedarmorstands.ir/)** •
@@ -40,7 +42,10 @@
 
 ## About
 
-**AdvancedArmorStands** lets you create, customize, animate and manage armor stands on your server, with in-game menus, reusable types, animations, click actions and a developer API. It is built with [XSeries](https://github.com/CryptoMorin/XSeries) for cross-version compatibility, so one jar works from 1.8 all the way up to the latest versions.
+**AdvancedArmorStands** lets you create, customize, animate and manage armor stands on your server, with in-game menus, reusable types, animations, click actions and a developer API. It is built with [XSeries](https://github.com/CryptoMorin/XSeries)[^1] for cross-version compatibility, so one jar works from 1.8 all the way up to the latest versions.
+
+
+[^1]: XSeries is a Minecraft library that makes it possible to support different Minecraft versions with the same code
 
 ---
 
@@ -74,6 +79,9 @@
     - [Types Config](#types-configuration)
     - [Animations Config](#animations-configuration)
     - [Actions Config](#actions-configuration)
+- [Artificial Intelligence](#artificial-intelligence)
+    - [How to set it up](#how-to-set-it-up)
+    - [How it works](#how-it-works)
 - [Contributors](#contributors)
 - [Donate](#donate)
 
@@ -91,9 +99,13 @@
 
 ---
 
+
+
 ## Supported Languages
 
-English, Italian, Persian, Portuguese, Russian, Spanish, Turkish, Bangla, Indonesian, Polish, Romanian, and more. **Add your own!**
+English, Italian, Persian, Portuguese, Russian, Spanish, Turkish, Bangla, Indonesian, Polish, Romanian, and more. **Add your own[^2]!**
+
+[^2]: To customize a language, copy it and rename it using the 'messages_<iso>.yml' format, then set this value to your custom language iso
 
 ---
 
@@ -101,7 +113,11 @@ English, Italian, Persian, Portuguese, Russian, Spanish, Turkish, Bangla, Indone
 
 ### Server Requirements
 
-- A Bukkit-based server such as **Spigot**, **Paper**, **Purpur**, or another compatible Bukkit/Paper fork.
+- A Bukkit-based server such as **Spigot**[^3], **Paper**[^4], **Purpur**[^5], or another compatible Bukkit/Paper fork.
+
+[^3]: Spigot is a minecraft server software based on Bukkit that supports plugins
+[^4]: Paper minecraft server software based on Spigot with improved performance and additional features
+[^5]: Purpur minecraft server software based on Paper with extra configuration options and features
 
 ### Optional Dependencies
 
@@ -212,9 +228,9 @@ animations:
           x: -30 # <====== Right arm X rotation
           y: 0   # <====== Right arm Y rotation
           z: 10  # <====== Right arm Z rotation
-        left_leg: # <====== Left leg pose for this step
-          x: 10  # <====== Left leg X rotation
-          y: 0   # <====== Left leg Y rotation
+        left_leg: #<====== Left leg X rotation
+          y: 0   #  <====== Left leg pose for this step
+          x: 10  # <====== Left leg Y rotation
           z: 0   # <====== Left leg Z rotation
         right_leg: # <====== Right leg pose for this step
           x: -10 # <====== Right leg X rotation
@@ -274,6 +290,122 @@ For more details, refer to the [official documentation](https://docs.advancedarm
 </div>
 
 ---
+<div align="center">
+
+# Artificial Intelligence [^6]
+
+[^6]: AI is technology that enables computers to learn, understand information, and perform tasks that normally require human intelligence
+
+Since [v1.26.0](https://github.com/Parsa3323/AdvancedArmorStands/releases#release-v1.26.0), AdvancedArmorStands includes AI features powered by **Google Gemini**.
+
+</div>
+
+> [!NOTE]
+> AI is **disabled by default**. You need to add your own API token before it will work.
+
+---
+
+<div align="center">
+
+## How to set it up
+
+**1.** Get a free API key from [Google AI Studio](https://aistudio.google.com/api-keys).
+
+**2.** Open your plugin's `config.yml` and find the `ai` section. Replace the placeholder with your key:
+
+</div>
+
+```diff
+ ai:
+-  token: 'PLACE_YOUR_TOKEN_HERE' # <========== Token for AI integration
++  token: 'AIzaSy...your-real-key' # <========== Paste your Google AI Studio key here
+   allow-players: true            # <========== Allow players to interact with the AI system
+```
+
+> [!IMPORTANT]
+> The AI features will not work until you replace the placeholder with a valid token.
+
+> [!WARNING]
+> Never share your token or post your `config.yml` publicly. Anyone with your key can use your Google quota.
+
+<div align="center">
+
+**3.** Restart the server. The AI options will now be unlocked.
+
+| Option | Description |
+|--------|-------------|
+| `token` | Your Google AI Studio API key |
+| `allow-players` | Set to `false` if only admins should be able to use the AI |
+
+---
+
+## How it works
+
+When someone asks the AI for help, the plugin sends the request to Gemini in the background, so your server never freezes while waiting. Gemini answers with a structured command, and the plugin carries it out.
+
+```mermaid
+flowchart LR
+    A[Player asks AI] --> B[Plugin sends request<br/>to Google Gemini]
+    B --> C[Gemini replies with<br/>an action]
+    C --> D{Which action?}
+    D -- create --> E[Spawns an armor stand]
+    D -- remove --> F[Deletes an armor stand]
+    D -- pose --> G[Changes the pose]
+    D -- none --> H[Nothing happens]
+    E --> I[Reply is sent to the player]
+    F --> I
+    G --> I
+    H --> I
+```
+
+<details>
+<summary>Technical details (for developers)</summary>
+
+&nbsp;
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor P as Player
+    participant AU as AiUtils (main thread)
+    participant AS as Async Thread
+    participant G as Google Gemini API
+    participant AA as handleAiAction
+    participant API as ArmorstandApi
+
+    P->>AU: Asks the AI for help
+    AU->>AU: getAssistInstructions() builds system prompt
+    AU->>AS: requestAsync(apiKey, instructions, userInput)
+
+    Note over AS,G: model gemini-3.5-flash-lite<br/>temperature 0.2, max 1024 tokens<br/>30s connect and read timeout
+
+    AS->>G: POST /v1beta/openai/chat/completions<br/>system = instructions, user = player message
+    G-->>AS: JSON reply (action, name, params, response)
+
+    alt Network error or HTTP code not 200
+        AS->>AS: resolveResult builds errorJson (action = none)
+    else HTTP 200
+        AS->>AS: parseChatCompletionsResponse extracts the text
+    end
+
+    AS->>AU: runTask back on the main thread
+    AU->>AA: handleAiAction(finalResult, player)
+    AA->>AA: extractJson strips markdown fences and parses JSON
+
+    alt action = create
+        AA->>API: createArmorStand(name, pose, location, player)
+    else action = remove
+        AA->>API: removeArmorStand(name)
+    else action = pose
+        AA->>API: previewPose(name, pose, player) then reloadPlugin()
+    else action = none or unknown
+        AA->>AA: warn "AI did not provide a valid action"
+    end
+
+    AU->>P: callback sends the "response" text from the JSON
+```
+
+</details>
 
 <div align="center">
 
