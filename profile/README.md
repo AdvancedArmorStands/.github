@@ -18,7 +18,7 @@
 <div align="center">
 
 [<img src="https://github.com/Parsa3323/AdvancedArmorStands/blob/master/.github/images/badge1.png?raw=true" width="204" style="vertical-align:middle;">](https://www.codefactor.io/repository/github/parsa3323/advancedarmorstands/badge)
-[<img src="https://github.com/Parsa3323/AdvancedArmorStands/blob/master/.github/images/badge2.png?raw=true" width="204" style="vertical-align:middle;">](#table-of-contents)
+[<img src="https://github.com/Parsa3323/AdvancedArmorStands/blob/master/.github/images/badge2.png?raw=true" width="204" style="vertical-align:middle;">](#)
 [<img src="https://github.com/Parsa3323/AdvancedArmorStands/blob/master/.github/images/badge3.png?raw=true" width="204" style="vertical-align:middle;">](#supported-languages)
 
 </div>
@@ -428,4 +428,3 @@ If you find the project useful and would like to support its development, you ca
 <a href="https://plisio.net/donate/nG4Or43y" target="_blank"><img src="https://plisio.net/img/donate/donate_dark_icons_no.png" alt="Donate Crypto on Plisio" width="240" height="48" /></a>
 <a href="https://nowpayments.io/donation?api_key=acb39f10-bbaa-42fc-8265-ce4016e2af7a" target="_blank" rel="noreferrer noopener"><img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="Donate Crypto on NOWPayments" width="240" height="48" /></a>
 </div>
-
