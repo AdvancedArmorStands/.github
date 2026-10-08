@@ -9,15 +9,15 @@
 [//]: # (**Super lightweight, smart, ultra-efficient plugin that barely uses any server resources!**)
 
 [![Downloads](https://img.shields.io/spiget/downloads/121022?label=Downloads&color=blue&logo=spigot)](https://www.spigotmc.org/resources/advancedarmorstands.121022/)
-![GitHub repo size](https://img.shields.io/github/repo-size/Parsa3323/AdvancedArmorStands?color=yellow&logo=github)
-[![GitHub license](https://img.shields.io/github/license/Parsa3323/AdvancedArmorStands?color=purple&logo=github)]()
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Parsa3323/AdvancedArmorStands/compile.yml?logo=github)
+[![GitHub repo size](https://img.shields.io/github/repo-size/Parsa3323/AdvancedArmorStands?color=yellow&logo=github)](#)
+[![GitHub license](https://img.shields.io/github/license/Parsa3323/AdvancedArmorStands?color=purple&logo=github)](#)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Parsa3323/AdvancedArmorStands/compile.yml?logo=github)](#)
 
 </div>
 
 <div align="center">
 
-[<img src="https://github.com/Parsa3323/AdvancedArmorStands/blob/master/.github/images/badge1.png?raw=true" width="204" style="vertical-align:middle;">](https://www.codefactor.io/repository/github/parsa3323/advancedarmorstands/badge)
+[<img src="https://github.com/Parsa3323/AdvancedArmorStands/blob/master/.github/images/badge1.png?raw=true" width="204" style="vertical-align:middle;">](https://www.codefactor.io/repository/github/parsa3323/advancedarmorstands/)
 [<img src="https://github.com/Parsa3323/AdvancedArmorStands/blob/master/.github/images/badge2.png?raw=true" width="204" style="vertical-align:middle;">](#)
 [<img src="https://github.com/Parsa3323/AdvancedArmorStands/blob/master/.github/images/badge3.png?raw=true" width="204" style="vertical-align:middle;">](#supported-languages)
 
